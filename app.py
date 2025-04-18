@@ -34,7 +34,7 @@ model_params = {
     "Prey_population_size": Slider(
         label="Number of Prey",
         value=100,
-        min=10,
+        min=1,
         max=200,
         step=10,
     ),
@@ -71,6 +71,14 @@ model_params = {
         min=1,
         max=20,
         step=1,
+    ),
+    # Parameter for Prey separation, updated label
+    "escape": Slider(
+        label="Escape Factor (Prey)",
+        value=0.1, # Default value from model
+        min=0.0,
+        max=5.0,
+        step=0.1,
     ),
      # Added parameter for predator speed
     "predator_speed": Slider(

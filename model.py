@@ -25,6 +25,7 @@ class BoidFlockers(Model):
         cohere=0.03,
         separate=0.015,
         match=0.05,
+        escape=0.1,
         predator_speed=0.5, # Specific speed for Predators
         predator_vision=15, # Specific vision for Predators
         seed=None,
@@ -33,6 +34,7 @@ class BoidFlockers(Model):
         self.Prey_population_size = Prey_population_size
         self.Predator_population_size = Predator_population_size
         # Store other parameters if needed by agents
+        self.escape = escape
         self.speed = speed
         self.vision = vision
         self.separation = separation
@@ -68,8 +70,8 @@ class BoidFlockers(Model):
                 cohere=self.cohere,
                 separate=self.separate,
                 match=self.match,
+                escape=self.escape
             )
-            #self.space.add_agent(agent)
 
         # Create Predator agents
         for i in range(self.Predator_population_size):
@@ -83,7 +85,6 @@ class BoidFlockers(Model):
                 speed=self.predator_speed,
                 vision=self.predator_vision,
             )
-            #self.space.add_agent(agent)
 
         # For tracking statistics (currently averages heading of ALL agents)
         self.average_heading = None
