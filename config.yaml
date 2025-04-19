@@ -1,17 +1,26 @@
-prey_population_size: 200
+prey_population_size: 150
 predator_population_size: 1
 
-speed: 2
-vision: 15
-separation: 3
+prey_cruise_speed: 1
+prey_burst_speed: 5
+prey_vision: 20
+separation: 5
 cohere: 0.0
-separate: 0.5
+separate: 1.0
 match: 1.0
 
-predator_speed: 4
-predator_vision: 30
+predator_cruise_speed: 2
+predator_burst_speed: 7
+predator_burst_dist: 20
+predator_vision: 50
 width: 300
 height: 300
 
 threshold: 10
 predator_introduce_time: 100
+eat_radius: 2
+
+predator_burst_cooldown: 10  # steps between predator bursts
+predator_burst_length: 5
+predator_max_turn_angle: 15
+predator_eat_cooldown: 30

@@ -65,18 +65,54 @@ model_params = {
     ),
     "width": get('width'), # Keep width and height as they are likely used by space
     "height": get('height'),
-    # Parameter for Prey speed, updated label
-    "speed": Slider(
-        label="Speed of Prey",
-        value=get('speed'), # Default value from user's previous app.py (matches model default if speed=1, adjust if needed)
-        min=1,
-        max=10,
-        step=0.5,
-    ),
+    "prey_cruise_speed": {
+        "type": "InputText",
+        "value": get('prey_cruise_speed'),
+        "label": "Prey Cruise Speed",
+    },
+    "prey_burst_speed": {
+        "type": "InputText",
+        "value": get('prey_burst_speed'),
+        "label": "Prey Burst Speed",
+    },
+
+    "predator_cruise_speed": {
+        "type": "InputText",
+        "value": get('predator_cruise_speed'),
+        "label": "Predator Cruise Speed",
+    },
+    "predator_burst_speed": {
+        "type": "InputText",
+        "value": get('predator_burst_speed'),
+        "label": "Predator Burst Speed",
+    },
+
+    "predator_burst_dist": { # Added based on request
+        "type": "InputText",
+        "value": get('predator_burst_dist', 10), # Provide a default if get() returns None
+        "label": "Predator Burst Distance",
+    },
+     "eat_radius": { # Added based on request
+        "type": "InputText",
+        "value": get('eat_radius', 2), # Provide a default if get() returns None
+        "label": "Predator Eat Radius",
+    },
+
+    "predator_burst_length": { # Added based on request
+        "type": "InputText",
+        "value": get('predator_burst_length'), # Provide a default if get() returns None
+        "label": "Predator Burst Length (steps)",
+    },
+     "predator_max_turn_angle": { # Added based on request
+        "type": "InputText",
+        "value": get('predator_max_turn_angle', 2), # Provide a default if get() returns None
+        "label": "Predator Max Turn Angle (deg)",
+    },
+
     # Parameter for Prey vision, updated label
-    "vision": Slider(
+    "prey_vision": Slider(
         label="Vision of Prey (radius)",
-        value=get('vision'), # Default value from model
+        value=get('prey_vision'), # Default value from model
         min=1,
         max=30,
         step=1,
@@ -88,14 +124,6 @@ model_params = {
         min=1,
         max=10,
         step=1,
-    ),
-     # Added parameter for predator speed
-    "predator_speed": Slider(
-        label="Speed of Predators",
-        value=get('predator_speed'), # Default value from user's previous app.py (matches model default if predator_speed=0.5, adjust if needed)
-        min=0.1,
-        max=10,
-        step=0.1,
     ),
     # Added parameter for predator vision
     "predator_vision": Slider(

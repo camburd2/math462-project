@@ -19,30 +19,44 @@ class BoidFlockers(Model):
         Predator_population_size=get('predator_population_size'),
         width=get('width'),
         height=get('height'),
-        speed=get('speed'),         # Speed for Preys
-        vision=get('vision'),       # Vision for Preys
-        separation=get('separation'),    # Separation for Preys
+
+        prey_cruise_speed=get('prey_cruise_speed'),
+        prey_burst_speed=get('prey_burst_speed'),
+        prey_vision=get('prey_vision'),
+        separation=get('separation'),
         cohere=get('cohere'),
         separate=get('separate'),
         match=get('match'),
-        predator_speed=get('predator_speed'), # Specific speed for Predators
-        predator_vision=get('predator_vision'), # Specific vision for Predators
+
+        predator_cruise_speed=get('predator_cruise_speed'),
+        predator_burst_speed=get('predator_burst_speed'),
+        predator_vision=get('predator_vision'),
+
         seed=None,
         threshold = get('threshold'),
-        predator_introduce_time = get('predator_introduce_time')
+        predator_introduce_time = get('predator_introduce_time'),
+        eat_radius = get('eat_radius'),
+        predator_burst_dist = get('predator_burst_dist'),
+        predator_max_turn_angle = get('predator_max_turn_angle'),
+        predator_burst_length = get('predator_burst_length')
     ):
         super().__init__(seed=seed)
-        self.Prey_population_size = Prey_population_size
-        self.Predator_population_size = Predator_population_size
-        # Store other parameters if needed by agents
-        self.speed = speed
-        self.vision = vision
-        self.separation = separation
-        self.cohere = cohere
-        self.separate = separate
-        self.match = match
-        self.predator_speed = predator_speed
-        self.predator_vision = predator_vision
+        self.Prey_population_size = int(Prey_population_size)
+        self.Predator_population_size = int(Predator_population_size)
+
+        self.prey_cruise_speed = float(prey_cruise_speed)
+        self.prey_burst_speed = float(prey_burst_speed)
+        self.prey_vision = float(prey_vision)
+        self.separation = float(separation)
+        self.cohere = float(cohere)
+        self.separate = float(separate)
+        self.match = float(match)
+
+        self.predator_cruise_speed = float(predator_cruise_speed)
+        self.predator_burst_speed = float(predator_burst_speed)
+        self.predator_burst_dist = float(predator_burst_dist)
+        self.predator_vision = float(predator_vision)
+        self.eat_radius = float(eat_radius)
 
         self.prey_to_remove = []
         self.threshold=threshold
@@ -50,6 +64,10 @@ class BoidFlockers(Model):
         self.running = True
         self.predators = []
         self.predator_introduce_time = predator_introduce_time
+
+        self.predator_max_turn_angle_rad = np.deg2rad(float(predator_max_turn_angle))
+        self.predator_burst_length = float(predator_burst_length)
+
 
         # Set up the space
         self.space = ContinuousSpace(
@@ -67,8 +85,9 @@ class BoidFlockers(Model):
                 space=self.space,
                 position=position,
                 direction=direction,
-                speed=self.speed,
-                vision=self.vision,
+                cruise_speed=self.prey_cruise_speed,
+                burst_speed=self.prey_burst_speed,
+                vision=self.prey_vision,
                 separation=self.separation,
                 cohere=self.cohere,
                 separate=self.separate,
@@ -89,9 +108,14 @@ class BoidFlockers(Model):
                     space=self.space,
                     position=position,
                     direction=direction,
-                    speed=self.predator_speed,
+                    cruise_speed=self.predator_cruise_speed,
+                    burst_speed=self.predator_burst_speed,
                     vision=self.predator_vision,
-                    threshold=self.threshold
+                    threshold=self.threshold,
+                    eat_radius=self.eat_radius,
+                    burst_dist=self.predator_burst_dist,
+                    max_turn_angle=self.predator_max_turn_angle_rad,
+                    burst_length=self.predator_burst_length
                 )
                 self.predators.append(pred)
 
