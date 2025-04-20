@@ -9,6 +9,9 @@ import solara
 from model import BoidFlockers  # Import from local model.py
 from agents import Prey, Predator  # Import from local agents.py
 
+from functools import lru_cache
+
+
 def bar_draw(model):
     fig, ax = plt.subplots(figsize=(4, 3))
     if model.predators:  # Check if there are any predators
@@ -31,7 +34,7 @@ def BarGraph(model):
     update_counter.get()  # Ensure component updates with model changes
     fig = bar_draw(model)
     solara.FigureMatplotlib(fig)
-
+    plt.close(fig)
 
 # Updated drawing function
 def boid_draw(agent):
@@ -53,8 +56,8 @@ model_params = {
         label="Number of Prey",
         value=get('prey_population_size'),
         min=1,
-        max=300,
-        step=10,
+        max=1000,
+        step=50,
     ),
     "Predator_population_size": Slider(
         label="Number of Predators",
@@ -75,7 +78,6 @@ model_params = {
         "value": get('prey_burst_speed'),
         "label": "Prey Burst Speed",
     },
-
     "predator_cruise_speed": {
         "type": "InputText",
         "value": get('predator_cruise_speed'),
@@ -108,31 +110,21 @@ model_params = {
         "value": get('predator_max_turn_angle', 2), # Provide a default if get() returns None
         "label": "Predator Max Turn Angle (deg)",
     },
-
-    # Parameter for Prey vision, updated label
-    "prey_vision": Slider(
-        label="Vision of Prey (radius)",
-        value=get('prey_vision'), # Default value from model
-        min=1,
-        max=30,
-        step=1,
-    ),
-    # Parameter for Prey separation, updated label
-    "separation": Slider(
-        label="Minimum Separation (Prey)",
-        value=get('separation'), # Default value from model
-        min=1,
-        max=10,
-        step=1,
-    ),
-    # Added parameter for predator vision
-    "predator_vision": Slider(
-        label="Vision of Predator (radius)",
-        value=get('predator_vision'), # Default value from model
-        min=1,
-        max=50,
-        step=1,
-    ),
+     "prey_vision": { # Added based on request
+        "type": "InputText",
+        "value": get('prey_vision', 2), # Provide a default if get() returns None
+        "label": "Vision of Prey (radius)",
+    },
+    "separation": { # Added based on request
+        "type": "InputText",
+        "value": get('separation'),
+        "label": "Minimum Separation (Prey)",
+    },
+    "predator_vision": { # Added based on request
+        "type": "InputText",
+        "value": get('predator_vision'),
+        "label": "Vision of Predator (radius)",
+    },
     "threshold": Slider(
         label="Prey eaten per Predator",
         value=get('threshold'),

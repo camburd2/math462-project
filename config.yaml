@@ -1,26 +1,26 @@
-prey_population_size: 150
-predator_population_size: 1
+prey_population_size: 300
+predator_population_size: 3
 
 prey_cruise_speed: 1
-prey_burst_speed: 5
-prey_vision: 20
-separation: 5
-cohere: 0.0
+prey_burst_speed: 6
+prey_vision: 16
+separation: 7
+cohere: 0.05
 separate: 1.0
 match: 1.0
 
-predator_cruise_speed: 2
-predator_burst_speed: 7
-predator_burst_dist: 20
-predator_vision: 50
+predator_cruise_speed: 3
+predator_burst_speed: 8
+predator_burst_dist: 17
+predator_vision: 80
 width: 300
 height: 300
 
 threshold: 10
-predator_introduce_time: 100
-eat_radius: 2
+predator_introduce_time: 150
+eat_radius: 1.5
 
-predator_burst_cooldown: 10  # steps between predator bursts
+predator_burst_cooldown: 5  # steps between predator bursts
 predator_burst_length: 5
-predator_max_turn_angle: 15
-predator_eat_cooldown: 30
+predator_max_turn_angle: 10
+predator_eat_cooldown: 15

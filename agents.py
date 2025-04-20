@@ -231,6 +231,7 @@ class Predator(ContinuousSpaceAgent):
             if (
                 self.eat_cooldown_count == 0
                 and np.linalg.norm(self.position - closest_neighbor.position) <= self.eat_radius
+                and closest_neighbor not in self.model.prey_to_remove
             ):
                 self.model.prey_to_remove.append(closest_neighbor)
                 self.eaten_count += 1
