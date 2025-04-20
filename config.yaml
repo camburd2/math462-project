@@ -1,26 +1,28 @@
+# SIMULATION PARAMETERS
+width: 300                    # width of simulation
+height: 300                   # height of simulation
 prey_population_size: 300
 predator_population_size: 3
+threshold: 10                 # number of prey each predator must eat for sim to end
+predator_introduce_time: 150  # steps until predators are introduced (to allow prey to flock)
 
+
+# PREY PARAMETERS
 prey_cruise_speed: 1
 prey_burst_speed: 6
-prey_vision: 16
-separation: 7
-cohere: 0.05
+prey_vision: 16               # prey start burst speed when pred within this distance
+separation: 7                 # min separation between prey
+cohere: 0.05    
 separate: 1.0
 match: 1.0
 
+# PREDATOR PARAMETERS
 predator_cruise_speed: 3
-predator_burst_speed: 8
-predator_burst_dist: 17
-predator_vision: 80
-width: 300
-height: 300
-
-threshold: 10
-predator_introduce_time: 150
-eat_radius: 1.5
-
-predator_burst_cooldown: 5  # steps between predator bursts
-predator_burst_length: 5
-predator_max_turn_angle: 10
-predator_eat_cooldown: 15
+predator_burst_speed: 8       
+predator_burst_dist: 17       # predator start burst speed at this dist from prey
+predator_vision: 80           # predator follow prey within this distance
+eat_radius: 1.5               # predators can eat prey within this radius
+predator_burst_cooldown: 5    # min steps between predator bursts
+predator_burst_length: 5      # steps of predator burst speed
+predator_max_turn_angle: 10   # maximum turn angle (degrees) for predator
+predator_eat_cooldown: 15     # min steps between predator eating prey
