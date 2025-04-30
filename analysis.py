@@ -6,13 +6,20 @@ from utils import get
 N_TRIALS   = 5       # how many random seeds per parameter set
 MAX_STEPS  = 5000    # failsafe upper bound so runs don’t go forever
 
-PREY_POPULATIONS = [100, 250, 500, 1000]
+PREY_POPULATIONS = [100, 250, 500, 750]
+NUM_PREDATORS = 5
 
 PARAM_SETS = [
-    dict(name="flock", separation=1, cohere=0.05, match=1, prey_population_size=pop)
+    dict(name="Schooling + Direct Flee", separation=1, cohere=0.05, match=1, prey_rand_scatter=0, prey_population_size=pop)
     for pop in PREY_POPULATIONS
 ] + [
-    dict(name="no_flock", separation=0, cohere=0, match=0, prey_population_size=pop)
+    dict(name="No Schooling + Direct Flee", separation=0, cohere=0, match=0, prey_rand_scatter=0, prey_population_size=pop)
+    for pop in PREY_POPULATIONS
+] + [
+    dict(name="Schooling + Random Scatter Flee", separation=1, cohere=0.05, match=1, prey_rand_scatter=1, prey_population_size=pop)
+    for pop in PREY_POPULATIONS
+] + [
+    dict(name="No Schooling + Random Scatter Flee", separation=0, cohere=0, match=0, prey_rand_scatter=1, prey_population_size=pop)
     for pop in PREY_POPULATIONS
 ]
 
@@ -23,6 +30,8 @@ def run_once(seed: int, sweep: dict) -> dict:
         separation=sweep["separation"],
         cohere=sweep["cohere"],
         match=sweep["match"],
+        prey_rand_scatter=sweep["prey_rand_scatter"],
+        Predator_population_size=NUM_PREDATORS,
         Prey_population_size=sweep["prey_population_size"],
     )
 
@@ -48,9 +57,10 @@ def main() -> None:
             records.append(run_once(trial, sweep))
 
     df = pd.DataFrame(records)
-    df.to_csv("results.csv", index=False)
+    save_path = f"results_{NUM_PREDATORS}_predators.csv"
+    df.to_csv(save_path, index=False)
 
-    print("\nPrediction steps summary (lower is faster):")
+    print("\npred steps summary (lower is faster):")
     print(df.groupby(["param_set", "prey_population_size"])["pred_steps"].describe())
 
     print(f"\nRaw data saved to {Path('results.csv').resolve()}")

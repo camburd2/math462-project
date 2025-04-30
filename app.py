@@ -52,6 +52,11 @@ model_params = {
         "value": 42,
         "label": "Random Seed",
     },
+    "prey_rand_scatter": {
+        "type": "InputText",
+        "value": get('prey_rand_scatter'),
+        "label": "0 = direct flee, 1 = rand scatter",
+    },
     "Prey_population_size": Slider(
         label="Number of Prey",
         value=get('prey_population_size'),

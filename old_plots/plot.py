@@ -11,9 +11,9 @@ pivot = stats.pivot(index='prey_population_size', columns='param_set', values='m
 errors = stats.pivot(index='prey_population_size', columns='param_set', values='se')
 
 ax = pivot.plot(kind='bar', yerr=errors, capsize=5, rot=0)
-ax.set_xlabel('Prey Population')
+ax.set_xlabel('Prey Population (2 trials each)')
 ax.set_ylabel('Steps for all Predators to eat 10 Prey')
-ax.set_title('Flock vs No Flock (random) for Different Prey Populations (300x300 grid)')
+ax.set_title('Predator Performance vs Prey Behavior for Different Prey Populations')
 plt.legend(title='Prey Behavior')
 plt.grid(axis='y', linestyle='--', alpha=0.7)
-plt.savefig('flock_vs_no_flock_prey_pop.png')
+plt.savefig('plot.png')

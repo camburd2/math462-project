@@ -35,6 +35,9 @@ class Prey(ContinuousSpaceAgent):
         cohere=get('cohere'),
         separate=get('separate'),
         match=get('match'),
+        burst_cooldown=get('prey_burst_cooldown'),
+        burst_length=get('prey_burst_length'),
+        prey_rand_scatter=get('prey_rand_scatter')
     ):
         """Create a new Boid flocker agent.
 
@@ -60,12 +63,18 @@ class Prey(ContinuousSpaceAgent):
         self.separate_factor = separate
         self.match_factor = match
         self.neighbors = []
-        self.predators_nearby = []
+
+        self.burst_cooldown = burst_cooldown
+        self.burst_length = burst_length
+        self.prey_rand_scatter = prey_rand_scatter
+
+        self.cooldown_timer = 0     # steps remaining before next scatter can start
+        self.burst_timer = 0        # steps remaining in the current scatter burst
 
     def step(self):
         """Get neighbors, calculate flocking and move."""
+        
         all_neighbors, distances = self.get_neighbors_in_radius(radius=self.vision)
-        # Store all neighbors (excluding self) for potential future use
         self.neighbors = [n for n in all_neighbors if n is not self]
 
         # Separate neighbors into Prey (for flocking) and Predators (for escaping)
@@ -76,10 +85,42 @@ class Prey(ContinuousSpaceAgent):
                 predator_neighbors.append(n)
             else:
                 flock_neighbors.append(n)
-        self.predators_nearby = predator_neighbors # Store for optional use
 
 
-        # --- Calculate Flocking Vectors (based on Prey neighbors) ---
+        # 1) DIRECT FLEE 
+        if self.prey_rand_scatter == 0 and predator_neighbors:
+            escape_vec = np.zeros(2)
+            for predator in predator_neighbors:
+                away = self.position - predator.position      # vector pointing from predator to prey
+                norm = np.linalg.norm(away)
+                if norm > 0:
+                    escape_vec += away / norm                 # add the unit vector
+            norm = np.linalg.norm(escape_vec)
+            if norm > 0:
+                self.direction = escape_vec / norm
+            self.position = (self.position + self.direction * self.burst_speed) % self.space.size
+            return
+        
+        # 2) RANDOM SCATTER
+        if self.prey_rand_scatter == 1:
+            # trigger burst when predator appears and no timers active
+            if predator_neighbors and self.burst_timer == 0 and self.cooldown_timer == 0:
+                self.burst_timer = self.burst_length
+                self.cooldown_timer = self.cooldown_timer
+
+            # during a burst: scatter random
+            if self.burst_timer > 0:
+                angle = self.model.random.uniform(0, 2 * np.pi)
+                self.direction = np.array([np.cos(angle), np.sin(angle)])  
+                self.position = (self.position + self.direction * self.burst_speed) % self.space.size
+                self.burst_timer -= 1
+                return    
+
+            # after burst ends, start cooldown
+            if self.cooldown_timer > 0: 
+                self.cooldown_timer -= 1          
+
+        # 3) NORMAL FLOCKING
         cohere_vector = np.zeros(2)
         separate_vector = np.zeros(2)
         match_vector = np.zeros(2)
@@ -97,39 +138,11 @@ class Prey(ContinuousSpaceAgent):
                 np.asarray([n.direction for n in flock_neighbors]).sum(axis=0) * self.match_factor
             )
 
-        if predator_neighbors:
-            # --- Flee directly away from predators ---
-            # 1.  Build a single escape vector that points away from every predator
-            escape_vec = np.zeros(2)
-            for predator in predator_neighbors:
-                away = self.position - predator.position      # vector pointing from predator to prey
-                norm = np.linalg.norm(away)
-                if norm > 0:
-                    escape_vec += away / norm                 # add the unit vector
-
-            # 2.  Normalise the combined escape vector
-            norm = np.linalg.norm(escape_vec)
-            if norm > 0:
-                self.direction = escape_vec / norm
-
-            # 3.  Move faster than normal to create distance
-            new_position = self.position + self.direction * self.burst_speed
-            self.position = new_position % self.space.size
-        else:
-            # --- Combine Vectors and Update Direction ---
-            flocking_vector = cohere_vector + separate_vector + match_vector
-
-            # Normalize the target direction vector IF it has magnitude
-            norm = np.linalg.norm(flocking_vector)
-            if norm > 0:
-                # If there are influences, SET (=) direction towards the normalized target
-                self.direction = flocking_vector / norm
-            # else: If target_direction_vector is zero, agent keeps its previous direction.
-
-            # --- Move Agent ---
-            # (Movement code using self.position = ... % self.space.size remains the same)
-            new_position = self.position + self.direction * self.cruise_speed
-            self.position = new_position % self.space.size
+        flocking_vector = cohere_vector + separate_vector + match_vector
+        norm = np.linalg.norm(flocking_vector)
+        if norm > 0:
+            self.direction = flocking_vector / norm
+        self.position = (self.position + self.direction * self.cruise_speed) % self.space.size
 
 
 class Predator(ContinuousSpaceAgent):

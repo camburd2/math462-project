@@ -1,0 +1,81 @@
+param_set,prey_population_size,finished,pred_steps
+Schooling + Direct Flee,100,True,893
+Schooling + Direct Flee,100,True,908
+Schooling + Direct Flee,100,True,1006
+Schooling + Direct Flee,100,True,922
+Schooling + Direct Flee,100,True,763
+Schooling + Direct Flee,250,True,577
+Schooling + Direct Flee,250,True,800
+Schooling + Direct Flee,250,True,855
+Schooling + Direct Flee,250,True,1203
+Schooling + Direct Flee,250,True,753
+Schooling + Direct Flee,500,True,530
+Schooling + Direct Flee,500,True,610
+Schooling + Direct Flee,500,True,689
+Schooling + Direct Flee,500,True,798
+Schooling + Direct Flee,500,True,844
+Schooling + Direct Flee,750,True,837
+Schooling + Direct Flee,750,True,631
+Schooling + Direct Flee,750,True,667
+Schooling + Direct Flee,750,True,542
+Schooling + Direct Flee,750,True,545
+No Schooling + Direct Flee,100,True,707
+No Schooling + Direct Flee,100,True,761
+No Schooling + Direct Flee,100,True,874
+No Schooling + Direct Flee,100,True,782
+No Schooling + Direct Flee,100,True,915
+No Schooling + Direct Flee,250,True,815
+No Schooling + Direct Flee,250,True,753
+No Schooling + Direct Flee,250,True,673
+No Schooling + Direct Flee,250,True,683
+No Schooling + Direct Flee,250,True,641
+No Schooling + Direct Flee,500,True,504
+No Schooling + Direct Flee,500,True,593
+No Schooling + Direct Flee,500,True,592
+No Schooling + Direct Flee,500,True,579
+No Schooling + Direct Flee,500,True,759
+No Schooling + Direct Flee,750,True,497
+No Schooling + Direct Flee,750,True,507
+No Schooling + Direct Flee,750,True,408
+No Schooling + Direct Flee,750,True,479
+No Schooling + Direct Flee,750,True,500
+Schooling + Random Scatter Flee,100,True,3088
+Schooling + Random Scatter Flee,100,True,1682
+Schooling + Random Scatter Flee,100,True,1377
+Schooling + Random Scatter Flee,100,True,1754
+Schooling + Random Scatter Flee,100,True,2138
+Schooling + Random Scatter Flee,250,True,2511
+Schooling + Random Scatter Flee,250,True,1508
+Schooling + Random Scatter Flee,250,True,1454
+Schooling + Random Scatter Flee,250,True,1795
+Schooling + Random Scatter Flee,250,True,1393
+Schooling + Random Scatter Flee,500,True,828
+Schooling + Random Scatter Flee,500,True,1900
+Schooling + Random Scatter Flee,500,True,1056
+Schooling + Random Scatter Flee,500,True,1169
+Schooling + Random Scatter Flee,500,True,2801
+Schooling + Random Scatter Flee,750,True,1248
+Schooling + Random Scatter Flee,750,True,2178
+Schooling + Random Scatter Flee,750,True,1405
+Schooling + Random Scatter Flee,750,True,1540
+Schooling + Random Scatter Flee,750,True,2096
+No Schooling + Random Scatter Flee,100,True,1178
+No Schooling + Random Scatter Flee,100,True,1192
+No Schooling + Random Scatter Flee,100,True,1275
+No Schooling + Random Scatter Flee,100,True,1220
+No Schooling + Random Scatter Flee,100,True,1103
+No Schooling + Random Scatter Flee,250,True,669
+No Schooling + Random Scatter Flee,250,True,698
+No Schooling + Random Scatter Flee,250,True,539
+No Schooling + Random Scatter Flee,250,True,1091
+No Schooling + Random Scatter Flee,250,True,727
+No Schooling + Random Scatter Flee,500,True,542
+No Schooling + Random Scatter Flee,500,True,471
+No Schooling + Random Scatter Flee,500,True,441
+No Schooling + Random Scatter Flee,500,True,530
+No Schooling + Random Scatter Flee,500,True,471
+No Schooling + Random Scatter Flee,750,True,446
+No Schooling + Random Scatter Flee,750,True,429
+No Schooling + Random Scatter Flee,750,True,473
+No Schooling + Random Scatter Flee,750,True,370
+No Schooling + Random Scatter Flee,750,True,474

@@ -27,6 +27,9 @@ class BoidFlockers(Model):
         cohere=get('cohere'),
         separate=get('separate'),
         match=get('match'),
+        prey_burst_cooldown=get('prey_burst_cooldown'),
+        prey_burst_length=get('prey_burst_length'),
+        prey_rand_scatter=get('prey_rand_scatter'),
 
         predator_cruise_speed=get('predator_cruise_speed'),
         predator_burst_speed=get('predator_burst_speed'),
@@ -51,6 +54,10 @@ class BoidFlockers(Model):
         self.cohere = float(cohere)
         self.separate = float(separate)
         self.match = float(match)
+        
+        self.prey_burst_cooldown= int(prey_burst_cooldown)
+        self.prey_burst_length= int(prey_burst_length)
+        self.prey_rand_scatter= int(prey_rand_scatter)
 
         self.predator_cruise_speed = float(predator_cruise_speed)
         self.predator_burst_speed = float(predator_burst_speed)
@@ -92,6 +99,9 @@ class BoidFlockers(Model):
                 cohere=self.cohere,
                 separate=self.separate,
                 match=self.match,
+                burst_cooldown=self.prey_burst_cooldown,
+                burst_length=self.prey_burst_length,
+                prey_rand_scatter=self.prey_rand_scatter               
             )
 
         self.finish_time = None
